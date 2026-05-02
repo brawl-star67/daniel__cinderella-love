@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daniel ❤️ Cinderella</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    color: #fff;
+}
+
+/* Glass Effect */
+.glass {
+    background: rgba(255,255,255,0.12);
+    backdrop-filter: blur(18px);
+    border-radius: 20px;
+    padding: 20px;
+    margin: 20px;
+    text-align: center;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+}
+
+/* Gallery */
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 15px;
+    padding: 20px;
+}
+
+.photo {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.7s ease;
+}
+
+.photo.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.photo img {
+    width: 100%;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+/* Password */
+.password-box input {
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+}
+
+.password-box button {
+    padding: 10px 15px;
+    border-radius: 10px;
+    border: none;
+    background: #ff5e78;
+    color: white;
+    cursor: pointer;
+}
+
+/* Video */
+#videoSection { display: none; }
+
+video {
+    width: 100%;
+    max-width: 500px;
+    border-radius: 15px;
+}
+
+/* 🐶 CORGI (ANIMATED) */
+#corgi {
+    position: fixed;
+    bottom: 20px;
+    right: -150px;
+    width: 120px;
+    display: none;
+    animation: slideIn 1s forwards, bounce 2s infinite;
+}
+
+@keyframes slideIn {
+    to { right: 20px; }
+}
+
+@keyframes bounce {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+/* Speech Bubble */
+#bubble {
+    position: fixed;
+    bottom: 150px;
+    right: 20px;
+    background: white;
+    color: black;
+    padding: 10px;
+    border-radius: 10px;
+    max-width: 220px;
+    display: none;
+    font-size: 14px;
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    margin: 30px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="glass">
+    <h1>Daniel ❤️ Cinderella</h1>
+    <h2>Happy 3rd Anniversary 🎉</h2>
+</div>
+
+<!-- 📸 Gallery -->
+<div class="gallery">
+    <div class="photo"><img src="photo1.jpg"></div>
+    <div class="photo"><img src="photo2.jpg"></div>
+    <div class="photo"><img src="photo3.jpg"></div>
+    <div class="photo"><img src="photo4.jpg"></div>
+    <div class="photo"><img src="photo5.jpg"></div>
+    <div class="photo"><img src="photo6.jpg"></div>
+</div>
+
+<!-- 🔐 Password -->
+<div class="glass password-box">
+    <h3>Enter Password to Unlock Special Video 🔐</h3>
+    <input type="password" id="pass" placeholder="Enter password">
+    <button onclick="checkPassword()">Unlock</button>
+</div>
+
+<!-- 🎥 Video -->
+<div class="glass" id="videoSection">
+    <h2>Our Special Moments 🎥</h2>
+    <video id="video" controls>
+        <source src="video.mp4" type="video/mp4">
+    </video>
+</div>
+
+<!-- 🐶 Corgi -->
+<img id="corgi" src="corgi.gif"> <!-- or corgi.jpg -->
+<div id="bubble"></div>
+
+<div class="footer">
+    Made with ❤️ by Daniel for Cinderella
+</div>
+
+<script>
+
+/* Scroll reveal */
+const photos = document.querySelectorAll('.photo');
+
+window.addEventListener('scroll', () => {
+    photos.forEach(photo => {
+        const rect = photo.getBoundingClientRect();
+        if (rect.top < window.innerHeight - 80) {
+            photo.classList.add('show');
+        }
+    });
+});
+
+/* Show corgi at bottom */
+let shown = false;
+
+window.addEventListener('scroll', () => {
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 50 && !shown) {
+        shown = true;
+        document.getElementById("corgi").style.display = "block";
+        showMessage("Hey! Are you going to see a secret thing? 👀 Enter the password below!");
+        startTimer();
+    }
+});
+
+/* Bubble */
+function showMessage(text) {
+    const bubble = document.getElementById("bubble");
+    bubble.innerText = text;
+    bubble.style.display = "block";
+}
+
+/* Timer */
+function startTimer() {
+    setTimeout(() => {
+        showMessage("I knew you couldn’t 😏 The password is 1906 ❤️");
+    }, 30000);
+}
+
+/* Password */
+function checkPassword() {
+    let pass = document.getElementById("pass").value;
+
+    if (pass === "1906") {
+        document.getElementById("videoSection").style.display = "block";
+        document.getElementById("video").play();
+        showMessage("Awww 💖 Enjoy your memories!");
+    } else {
+        showMessage("Oops 😅 Wrong password!");
+    }
+}
+
+</script>
+
+</body>
+</html>
